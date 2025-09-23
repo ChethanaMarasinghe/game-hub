@@ -1,3 +1,4 @@
+import { GameQuery } from "../App";
 import useData from "./useData";
 import { Genre } from "./useGenres";
 
@@ -13,14 +14,13 @@ import { Genre } from "./useGenres";
         name: string;
         background_image: string;
         parent_platforms: {platform: Platform}[];
-        metacritic: number; 
+        metacritic: number;  
     }
 
 
-const useGames = (selectedGenre: Genre | null, 
-    selectedPlatform: Platform | null ) => 
+const useGames = (gameQuery: GameQuery) => 
         useData<Game>('/games',
-            {params: {genres: selectedGenre?.id, parent_platforms: selectedPlatform?.id}}, 
-            [selectedGenre?.id, selectedPlatform?.id]);
+            {params: {genres: gameQuery.genre?.id, parent_platforms: gameQuery.platform?.id}}, 
+            [gameQuery]);
 export default useGames
 
